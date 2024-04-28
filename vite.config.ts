@@ -12,6 +12,15 @@ const outDir = resolve(__dirname, outputFolderName);
 const publicDir = resolve(__dirname, 'public');
 
 export default defineConfig({
+  server: {
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+    },
+  },
+  optimizeDeps: {
+    exclude: ['@sqlite.org/sqlite-wasm'],
+  },
   resolve: {
     alias: {
       '@src': root,
@@ -30,6 +39,8 @@ export default defineConfig({
         devtools: resolve(pagesDir, 'devtools', 'index.html'),
         panel: resolve(pagesDir, 'panel', 'index.html'),
         background: resolve(pagesDir, 'background', 'index.ts'),
+        inject: resolve(pagesDir, 'inject', 'index.ts'),
+        sqlWorker: resolve(pagesDir, 'sqlWorker', 'index.js'),
         popup: resolve(pagesDir, 'popup', 'index.html'),
         newtab: resolve(pagesDir, 'newtab', 'index.html'),
         options: resolve(pagesDir, 'options', 'index.html'),

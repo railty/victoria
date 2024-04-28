@@ -23,7 +23,10 @@ const manifest: Manifest.WebExtensionManifest = {
   icons: {
     '128': 'icon-128.png',
   },
-  permissions: ["activeTab"],
+  permissions: ["activeTab", "scripting",],
+  host_permissions: [
+    "<all_urls>"
+  ],
   content_scripts: [
     {
       matches: ['http://*/*', 'https://*/*', '<all_urls>'],
@@ -38,6 +41,10 @@ const manifest: Manifest.WebExtensionManifest = {
       matches: [],
     },
   ],
+  content_security_policy: {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';",
+    "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval'; child-src 'self';"
+  },
 };
 
 export default manifest;
